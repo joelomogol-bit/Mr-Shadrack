@@ -1,13 +1,14 @@
-import './globals.css';
+ import './globals.css';
 import { Inter } from 'next/font/google';
 import Navbar from '@/components/Navbar';
 import Footer from '@/components/Footer';
 
 const inter = Inter({ subsets: ['latin'] });
 
+// Updated to reflect Shadrack Kaome's official "Behind The Hustle" Mentorship Program
 export const metadata = {
-  title: 'Kihato Marketing - Learn Web Design, Ads, and Digital Marketing',
-  description: 'Gain action-driven knowledge. Accelerate or build a high-income tech career.',
+  title: 'Behind The Hustle - Build a Profitable Online Brand with Shadrack Kaome',
+  description: 'Master physical product research, local sourcing, global importing, Shopify development, viral organic content, and Meta/TikTok Ads.',
 };
 
 export default function RootLayout({
