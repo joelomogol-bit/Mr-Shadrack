@@ -1,4 +1,4 @@
-import { createClient } from '@/lib/supabase/server';
+ import { createClient } from '@/lib/supabase/server';
 import CourseCard from '@/components/CourseCard';
 
 export const revalidate = 0;
@@ -11,7 +11,8 @@ interface CoursesPageProps {
 }
 
 export default async function CoursesPage({ searchParams }: CoursesPageProps) {
-  const supabase = createClient();
+  // FIX: Added await to resolve the promise first
+  const supabase = await createClient();
   const catSlug = searchParams.category;
   const searchQuery = searchParams.search;
 
