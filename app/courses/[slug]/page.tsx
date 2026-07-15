@@ -1,11 +1,12 @@
-import { createClient } from '@/lib/supabase/server';
+ import { createClient } from '@/lib/supabase/server';
 import { notFound } from 'next/navigation';
 import Link from 'next/link';
 
 export const revalidate = 0;
 
 export default async function CourseDetailPage({ params }: { params: { slug: string } }) {
-  const supabase = createClient();
+  // FIX: Added await here to resolve the client promise first
+  const supabase = await createClient();
 
   const { data: course } = await supabase
     .from('courses')
