@@ -1,6 +1,7 @@
  "use client";
 
 import Link from 'next/link';
+import Image from 'next/image';
 import { 
   CheckCircle, 
   Smartphone, 
@@ -58,18 +59,28 @@ export default function HomePage() {
           </div>
         </div>
 
-        {/* Hero Banner / Visual Block */}
+        {/* Hero Banner / Visual Block with Image */}
         <div className="relative flex justify-center">
-          <div className="w-full max-w-md aspect-square rounded-2xl border border-gray-800 bg-cardBg overflow-hidden flex items-center justify-center relative">
-            <div className="absolute inset-0 bg-gradient-to-t from-background via-transparent to-transparent z-10" />
-            <div className="text-center p-6 z-20">
-              <div className="w-20 h-20 rounded-full bg-orangeAccent/10 flex items-center justify-center mx-auto mb-4 border border-orangeAccent/30">
-                <Target className="h-8 w-8 text-orangeAccent" />
-              </div>
+          <div className="w-full max-w-md aspect-square rounded-2xl border border-gray-800 bg-cardBg overflow-hidden relative group shadow-2xl">
+            
+            {/* 1. ACTUAL IMAGE RENDERING */}
+            <Image 
+              src="/shadrack.png" // Make sure your image in public/ matches this filename and format exactly
+              alt="Shadrack Kaome - Behind The Hustle"
+              fill
+              className="object-cover object-top transition duration-500 group-hover:scale-105"
+              priority
+            />
+
+            {/* 2. GRADIENT OVERLAY FOR DESIGN DEPTH */}
+            <div className="absolute inset-0 bg-gradient-to-t from-background via-background/20 to-transparent z-10" />
+            
+            {/* 3. FLOATING BADGE OVER THE IMAGE */}
+            <div className="absolute bottom-6 left-6 right-6 z-20 bg-background/80 backdrop-blur-md border border-gray-800 p-4 rounded-xl">
               <p className="font-extrabold text-creamText text-lg">Shadrack Kaome</p>
-              <p className="text-xs text-mutedText mt-1 uppercase tracking-widest">Behind The Hustle</p>
+              <p className="text-xs text-orangeAccent mt-0.5 uppercase tracking-widest font-semibold">Founder, Behind The Hustle</p>
             </div>
-            <div className="absolute inset-0 opacity-5 bg-[radial-gradient(#ff6b00_1px,transparent_1px)] [background-size:16px_16px]" />
+            
           </div>
         </div>
       </section>
