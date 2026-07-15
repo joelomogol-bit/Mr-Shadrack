@@ -1,4 +1,4 @@
-"use client";
+ "use client";
 
 import Link from 'next/link';
 import { useState, useEffect } from 'react';
@@ -39,8 +39,9 @@ export default function Navbar() {
       <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
         <div className="flex items-center justify-between h-16">
           <div className="flex items-center">
+            {/* Updated Brand Logo and Text to Shadrack Kaome's official Brand */}
             <Link href="/" className="text-creamText font-bold text-xl flex items-center gap-2">
-              <span className="text-orangeAccent">Kihato</span> Marketing
+              <span className="text-orangeAccent">Behind</span> The Hustle
             </Link>
           </div>
           
