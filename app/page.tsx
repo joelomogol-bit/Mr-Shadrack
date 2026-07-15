@@ -1,192 +1,181 @@
- import { createClient } from '@/lib/supabase/server';
+ "use client";
+
 import Link from 'next/link';
+import Image from 'next/image';
+import { CheckCircle, BookOpen, Layers, Users, Award, ExternalLink } from 'lucide-react';
 
-export const revalidate = 0;
-
-export default async function HomePage() {
-  // FIX: Added await to resolve the promise first
-  const supabase = await createClient();
-
-  const { count: studentsCount } = await supabase.from('profiles').select('*', { count: 'exact', head: true });
-  const { count: coursesCount } = await supabase.from('courses').select('*', { count: 'exact', head: true });
-
-  const { data: categories } = await supabase.from('categories').select('*').limit(4);
-  const { data: featuredCourses } = await supabase.from('courses').select('*, categories(*)').limit(3);
-  const { data: testimonials } = await supabase.from('testimonials').select('*').limit(3);
-  const { data: faqs } = await supabase.from('faqs').select('*').order('display_order', { ascending: true }).limit(3);
-
+export default function HomePage() {
   return (
-    <div className="bg-background min-h-screen text-creamText">
-      {/* Hero Section */}
-      <section className="relative py-20 md:py-32 overflow-hidden border-b border-gray-900">
-        <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 relative z-10 text-center">
-          <span className="bg-orangeAccent/10 text-orangeAccent text-xs font-bold px-4 py-1.5 rounded-full uppercase tracking-widest mb-6 inline-block">
-            Empowering Kenyan Creators
+    <div className="bg-background text-creamText min-h-screen">
+      
+      {/* 1. HERO SECTION */}
+      <section className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-12 md:py-20 grid grid-cols-1 md:grid-cols-2 gap-12 items-center">
+        <div>
+          <span className="text-orangeAccent font-semibold text-sm tracking-wider uppercase block mb-3">
+            ✨ Trusted by Aspiring Entrepreneurs
           </span>
-          <h1 className="text-4xl md:text-7xl font-extrabold tracking-tight mb-6 leading-tight max-w-4xl mx-auto text-creamText">
-            Acquire High-Income Digital Skills Online
+          <h1 className="text-4xl md:text-5xl font-extrabold text-creamText leading-tight mb-6">
+            Build a Profitable <br />
+            <span className="text-orangeAccent">Online Brand</span> From Scratch
           </h1>
-          <p className="text-lg md:text-xl text-mutedText max-w-2xl mx-auto mb-10 leading-relaxed">
-            Master Web Design, AI workflows, Graphic Design, and Copywriting with step-by-step video lessons and dedicated guidance.
+          <p className="text-mutedText text-lg mb-8 leading-relaxed">
+            Learn how to build a profitable online brand using your smartphone or computer. Master the exact blueprints behind product validation, local sourcing, global importing, Shopify creation, and viral marketing.
           </p>
-          <div className="flex flex-col sm:flex-row gap-4 justify-center">
-            <Link
-              href="/courses"
-              className="bg-orangeAccent hover:bg-orangeHover text-creamText font-extrabold px-8 py-4 rounded-xl shadow-lg transition text-base"
+          <div className="flex flex-col sm:flex-row gap-4 mb-8">
+            <Link 
+              href="/courses/profitable-online-brand" 
+              className="bg-orangeAccent hover:bg-orangeHover text-creamText font-bold px-8 py-4 rounded-xl text-center transition shadow-lg"
             >
-              Explore Masterclasses
+              Explore Mentorship
             </Link>
-            <Link
-              href="/signup"
-              className="bg-cardBg hover:bg-gray-800 border border-gray-800 text-creamText font-bold px-8 py-4 rounded-xl transition text-base"
+            <a 
+              href="https://forms.gle/zCM4wpGt3sVrhfbs6" 
+              target="_blank" 
+              rel="noopener noreferrer" 
+              className="border border-gray-700 hover:border-gray-500 text-creamText font-bold px-8 py-4 rounded-xl text-center transition flex items-center justify-center gap-2"
             >
-              Join Free Today
+              Apply for Mentorship <ExternalLink className="h-4 w-4" />
+            </a>
+          </div>
+          {/* Trust Badge */}
+          <div className="flex items-center gap-2 text-sm text-mutedText border-t border-gray-900 pt-6">
+            <span className="flex -space-x-2">
+              <span className="w-8 h-8 rounded-full bg-orangeAccent/20 border border-background flex items-center justify-center text-xs font-bold text-orangeAccent">SK</span>
+              <span className="w-8 h-8 rounded-full bg-gray-800 border border-background flex items-center justify-center text-xs font-bold">BH</span>
+            </span>
+            <p>Join students building real digital assets in Kenya</p>
+          </div>
+        </div>
+
+        {/* Profile Image Placeholder */}
+        <div className="relative flex justify-center">
+          <div className="w-full max-w-md aspect-square rounded-2xl border border-gray-800 bg-cardBg overflow-hidden flex items-center justify-center relative group">
+            {/* IMAGE PLACEHOLDER: Replace src with Shadrack's photo once uploaded */}
+            <div className="absolute inset-0 bg-gradient-to-t from-background via-transparent to-transparent z-10" />
+            <div className="text-center p-6 z-20">
+              <div className="w-20 h-20 rounded-full bg-orangeAccent/10 flex items-center justify-center mx-auto mb-4 border border-orangeAccent/30">
+                <Users className="h-8 w-8 text-orangeAccent" />
+              </div>
+              <p className="font-bold text-creamText">Shadrack Kaome</p>
+              <p className="text-xs text-mutedText mt-1">Founder, Behind The Hustle</p>
+            </div>
+            {/* Fallback pattern background */}
+            <div className="absolute inset-0 opacity-5 bg-[radial-gradient(#ff6b00_1px,transparent_1px)] [background-size:16px_16px]" />
+          </div>
+        </div>
+      </section>
+
+      {/* 2. STATS SECTION */}
+      <section className="bg-cardBg border-y border-gray-900 py-10">
+        <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 grid grid-cols-3 gap-6 text-center">
+          <div>
+            <p className="text-3xl md:text-4xl font-extrabold text-orangeAccent">10</p>
+            <p className="text-xs md:text-sm text-mutedText mt-1 uppercase tracking-wider font-semibold">Core Modules</p>
+          </div>
+          <div>
+            <p className="text-3xl md:text-4xl font-extrabold text-creamText">8 Weeks</p>
+            <p className="text-xs md:text-sm text-mutedText mt-1 uppercase tracking-wider font-semibold">Duration</p>
+          </div>
+          <div>
+            <p className="text-3xl md:text-4xl font-extrabold text-creamText">1-on-1</p>
+            <p className="text-xs md:text-sm text-mutedText mt-1 uppercase tracking-wider font-semibold">Personal Support</p>
+          </div>
+        </div>
+      </section>
+
+      {/* 3. CATEGORIES SECTION */}
+      <section className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-20">
+        <div className="text-center max-w-xl mx-auto mb-16">
+          <h2 className="text-3xl font-extrabold text-creamText">Explore Mentorship Pillars</h2>
+          <p className="text-mutedText mt-4">We break down online brand building into structural, actionable disciplines.</p>
+        </div>
+        <div className="grid grid-cols-1 md:grid-cols-2 gap-8">
+          
+          <div className="bg-cardBg border border-gray-800 p-8 rounded-2xl hover:border-orangeAccent/30 transition duration-300">
+            <div className="text-4xl mb-4">🛍️</div>
+            <h3 className="text-xl font-bold text-creamText mb-2">E-Commerce & Sourcing</h3>
+            <p className="text-mutedText text-sm mb-6 leading-relaxed">
+              Master product demand analysis, physical product sourcing strategies (both locally and global import infrastructures), and setting up conversions on Shopify.
+            </p>
+            <Link href="/courses" className="text-orangeAccent hover:text-orangeHover font-semibold text-sm flex items-center gap-1">
+              Explore Modules &rarr;
             </Link>
           </div>
-        </div>
-      </section>
 
-      {/* Stats Section */}
-      <section className="py-12 bg-cardBg/50 border-b border-gray-900">
-        <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
-          <div className="grid grid-cols-2 md:grid-cols-4 gap-8 text-center">
-            <div>
-              <p className="text-3xl md:text-5xl font-extrabold text-orangeAccent">{(studentsCount || 0) + 120}+</p>
-              <p className="text-xs uppercase font-bold text-mutedText mt-2 tracking-wider">Students Enrolled</p>
-            </div>
-            <div>
-              <p className="text-3xl md:text-5xl font-extrabold text-creamText">{coursesCount || 3}</p>
-              <p className="text-xs uppercase font-bold text-mutedText mt-2 tracking-wider">Premium Courses</p>
-            </div>
-            <div>
-              <p className="text-3xl md:text-5xl font-extrabold text-creamText">99%</p>
-              <p className="text-xs uppercase font-bold text-mutedText mt-2 tracking-wider">Satisfaction Rate</p>
-            </div>
-            <div>
-              <p className="text-3xl md:text-5xl font-extrabold text-creamText">KSH 0</p>
-              <p className="text-xs uppercase font-bold text-mutedText mt-2 tracking-wider">Hidden Fees</p>
-            </div>
-          </div>
-        </div>
-      </section>
-
-      {/* Categories Grid */}
-      <section className="py-20 max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
-        <div className="text-center mb-16">
-          <h2 className="text-3xl md:text-4xl font-extrabold text-creamText">Choose Your Specialty</h2>
-          <p className="text-mutedText mt-3 text-base">Select a domain to begin upgrading your skill set instantly.</p>
-        </div>
-        <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-6">
-          {categories?.map((cat) => (
-            <Link
-              key={cat.id}
-              href={`/courses?category=${cat.slug}`}
-              className="bg-cardBg border border-gray-800 hover:border-orangeAccent/50 p-8 rounded-2xl transition duration-300 group text-left"
-            >
-              <span className="text-4xl block mb-4 group-hover:scale-110 transition duration-300">{cat.icon}</span>
-              <h3 className="text-lg font-bold text-creamText mb-2 group-hover:text-orangeAccent transition-colors">
-                {cat.name}
-              </h3>
-              <p className="text-mutedText text-xs leading-relaxed">{cat.description}</p>
-            </Link>
-          ))}
-        </div>
-      </section>
-
-      {/* Featured Courses */}
-      <section className="py-20 bg-cardBg/30 border-t border-b border-gray-900">
-        <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
-          <div className="flex flex-col sm:flex-row items-start sm:items-end justify-between mb-12">
-            <div>
-              <h2 className="text-3xl font-extrabold text-creamText">Featured Masterclasses</h2>
-              <p className="text-mutedText mt-2 text-sm">Enroll now and access instant self-paced learning portal.</p>
-            </div>
-            <Link href="/courses" className="text-orangeAccent hover:underline font-bold text-sm mt-4 sm:mt-0">
-              View All Courses &rarr;
+          <div className="bg-cardBg border border-gray-800 p-8 rounded-2xl hover:border-orangeAccent/30 transition duration-300">
+            <div className="text-4xl mb-4">🎥</div>
+            <h3 className="text-xl font-bold text-creamText mb-2">Marketing & Brand Strategy</h3>
+            <p className="text-mutedText text-sm mb-6 leading-relaxed">
+              Learn viral organic content production algorithms using CapCut, scale traffic via Meta and TikTok advertising architectures, and close clients with proven sales scripts.
+            </p>
+            <Link href="/courses" className="text-orangeAccent hover:text-orangeHover font-semibold text-sm flex items-center gap-1">
+              Explore Modules &rarr;
             </Link>
           </div>
 
-          <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-8">
-            {featuredCourses?.map((course) => (
-              <div
-                key={course.id}
-                className="bg-cardBg border border-gray-800 rounded-2xl overflow-hidden hover:border-orangeAccent/50 transition duration-300 flex flex-col h-full group"
-              >
-                <div className="p-6 flex-1 flex flex-col">
-                  <div className="flex gap-2 items-center mb-4">
-                    <span className="bg-orangeAccent/10 text-orangeAccent text-xs font-semibold px-3 py-1 rounded-full">
-                      {course.categories?.name}
-                    </span>
-                    <span className="text-mutedText text-xs font-semibold">⏱ {course.duration}</span>
-                  </div>
-                  <h3 className="text-xl font-bold text-creamText mb-2 group-hover:text-orangeAccent transition-colors">
-                    {course.title}
-                  </h3>
-                  <p className="text-mutedText text-sm leading-relaxed mb-6 line-clamp-3">
-                    {course.description}
-                  </p>
-
-                  <div className="border-t border-gray-800 pt-4 flex items-center justify-between mt-auto">
-                    <div>
-                      <p className="text-[10px] uppercase font-bold text-mutedText">Tuition</p>
-                      <p className="text-lg font-extrabold text-creamText">KSH {course.price.toLocaleString()}</p>
-                    </div>
-                    <Link
-                      href={`/courses/${course.slug}`}
-                      className="bg-orangeAccent hover:bg-orangeHover text-creamText font-bold text-xs px-4 py-2 rounded-lg transition"
-                    >
-                      Enroll Now
-                    </Link>
-                  </div>
-                </div>
-              </div>
-            ))}
-          </div>
         </div>
       </section>
 
-      {/* Testimonials */}
-      <section className="py-20 max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
-        <div className="text-center mb-16">
-          <h2 className="text-3xl md:text-4xl font-extrabold text-creamText">Loved by 100+ Students</h2>
-          <p className="text-mutedText mt-3 text-base">Here is what actual students are saying about our masterclasses.</p>
-        </div>
-        <div className="grid grid-cols-1 md:grid-cols-3 gap-8">
-          {testimonials?.map((t) => (
-            <div key={t.id} className="bg-cardBg border border-gray-800 p-8 rounded-2xl relative">
-              <span className="text-orangeAccent text-4xl font-serif absolute top-4 right-6 opacity-30">“</span>
-              <p className="text-mutedText text-sm leading-relaxed italic mb-6 relative z-10">"{t.quote}"</p>
-              <div className="flex items-center gap-3">
-                <div className="bg-orangeAccent/20 text-orangeAccent font-bold rounded-full w-10 h-10 flex items-center justify-center text-sm">
-                  {t.name.charAt(0)}
-                </div>
-                <div>
-                  <h4 className="font-bold text-creamText text-sm">{t.name}</h4>
-                  <p className="text-[10px] uppercase font-bold text-orangeAccent tracking-wider">Verified Graduate</p>
-                </div>
+      {/* 4. VALUE PROPOSITION SECTION */}
+      <section className="bg-cardBg border-t border-gray-900 py-20">
+        <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 grid grid-cols-1 lg:grid-cols-2 gap-12 items-center">
+          <div>
+            <h2 className="text-3xl font-extrabold text-creamText mb-6">Why Join the Behind The Hustle Mentorship?</h2>
+            <p className="text-mutedText mb-8">
+              This isn't theory. This is a practical roadmap built directly from real-world execution, designed to give you a clear, straightforward path to building digital income assets.
+            </p>
+            <ul className="space-y-4">
+              <li className="flex items-start gap-3">
+                <CheckCircle className="h-6 w-6 text-orangeAccent flex-shrink-0 mt-0.5" />
+                <span className="text-mutedText">Complete step-by-step masterclass modules taught by Shadrack Kaome.</span>
+              </li>
+              <li className="flex items-start gap-3">
+                <CheckCircle className="h-6 w-6 text-orangeAccent flex-shrink-0 mt-0.5" />
+                <span className="text-mutedText">Learn at your pace using a smartphone, Samsung device, tablet, or computer.</span>
+              </li>
+              <li className="flex items-start gap-3">
+                <CheckCircle className="h-6 w-6 text-orangeAccent flex-shrink-0 mt-0.5" />
+                <span className="text-mutedText">Actionable steps on local wholesale sourcing and international importing.</span>
+              </li>
+              <li className="flex items-start gap-3">
+                <CheckCircle className="h-6 w-6 text-orangeAccent flex-shrink-0 mt-0.5" />
+                <span className="text-mutedText">Direct guidance on paid ad optimizations and high-converting organic video scripts.</span>
+              </li>
+            </ul>
+          </div>
+
+          <div className="bg-background border border-gray-800 p-8 rounded-2xl">
+            <h3 className="text-xl font-bold text-creamText mb-6">Course Modules Blueprint</h3>
+            <div className="space-y-4 max-h-[350px] overflow-y-auto pr-2 custom-scrollbar">
+              <div className="border-b border-gray-900 pb-3">
+                <p className="text-orangeAccent font-bold text-xs uppercase tracking-wider">Module 1</p>
+                <p className="font-semibold text-creamText">Mindset & Personal Development</p>
+              </div>
+              <div className="border-b border-gray-900 pb-3">
+                <p className="text-orangeAccent font-bold text-xs uppercase tracking-wider">Module 2</p>
+                <p className="font-semibold text-creamText">Finding the Right Business & Validation</p>
+              </div>
+              <div className="border-b border-gray-900 pb-3">
+                <p className="text-orangeAccent font-bold text-xs uppercase tracking-wider">Module 3</p>
+                <p className="font-semibold text-creamText">Product Research & Profitability</p>
+              </div>
+              <div className="border-b border-gray-900 pb-3">
+                <p className="text-orangeAccent font-bold text-xs uppercase tracking-wider">Module 4</p>
+                <p className="font-semibold text-creamText">Product Sourcing & Global Importing</p>
+              </div>
+              <div className="border-b border-gray-900 pb-3">
+                <p className="text-orangeAccent font-bold text-xs uppercase tracking-wider">Module 5</p>
+                <p className="font-semibold text-creamText">Shopify Setup & Store Optimization</p>
+              </div>
+              <div className="border-b border-gray-900 pb-3">
+                <p className="text-orangeAccent font-bold text-xs uppercase tracking-wider">Module 6 - 10</p>
+                <p className="font-semibold text-creamText">Content, SMM, Paid Ads, Closings & POS Systems</p>
               </div>
             </div>
-          ))}
+          </div>
         </div>
       </section>
 
-      {/* FAQ Section */}
-      <section className="py-20 bg-cardBg/30 border-t border-gray-900">
-        <div className="max-w-4xl mx-auto px-4 sm:px-6">
-          <div className="text-center mb-16">
-            <h2 className="text-3xl font-extrabold text-creamText">Frequently Asked Questions</h2>
-            <p className="text-mutedText mt-3 text-sm">Everything you need to know about starting your classes.</p>
-          </div>
-          <div className="space-y-6">
-            {faqs?.map((faq) => (
-              <div key={faq.id} className="bg-cardBg border border-gray-800 p-6 rounded-2xl">
-                <h4 className="font-bold text-creamText mb-2 text-base">{faq.question}</h4>
-                <p className="text-mutedText text-sm leading-relaxed">{faq.answer}</p>
-              </div>
-            ))}
-          </div>
-        </div>
-      </section>
     </div>
   );
 }
